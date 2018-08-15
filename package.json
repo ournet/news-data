@@ -1,0 +1,51 @@
+{
+  "name": "@ournet/news-data",
+  "version": "0.0.1",
+  "description": "Ournet news data module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "pretest": "npm run clean && npm run tsc",
+    "test": "ava --verbose lib/**/*.test.js",
+    "posttest": "npm run clean-test-code",
+    "tsc": "tsc",
+    "tscw": "tsc -w",
+    "preversion": "npm run tsc",
+    "postversion": "git push --follow-tags",
+    "prepublishOnly": "npm run tsc && npm run clean-test-code",
+    "clean": "rimraf ./lib",
+    "clean-test-code": "rimraf ./lib/**/*.test.js && rimraf ./lib/**/*.test.d.ts"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ournet/news-data.git"
+  },
+  "keywords": [
+    "news",
+    "news-data",
+    "data",
+    "ournet"
+  ],
+  "author": "Dumitru Cantea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ournet/news-data/issues"
+  },
+  "homepage": "https://github.com/ournet/news-data#readme",
+  "devDependencies": {
+    "@types/elasticsearch": "^5.0.25",
+    "@types/node": "latest",
+    "ava": "^0.25.0",
+    "debug": "^3.1.0",
+    "dynamodb-local": "^0.0.22",
+    "rimraf": "^2.6.2",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.291.0",
+    "elasticsearch": "^15.1.1"
+  }
+}

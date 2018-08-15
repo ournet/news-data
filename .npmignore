@@ -1,0 +1,8 @@
+
+*.test.js
+src/
+tsconfig.json
+yarn.lock
+.travis.yml
+dev.sh
+prod.sh

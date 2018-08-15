@@ -1,0 +1,86 @@
+{
+  "news_item": {
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "lang": {
+        "type": "string"
+      },
+      "country": {
+        "type": "string"
+      },
+      "publishedAt": {
+        "type": "string"
+      },
+      "title_ro": {
+        "type": "string",
+        "analyzer": "romanian"
+      },
+      "summary_ro": {
+        "type": "string",
+        "analyzer": "romanian"
+      },
+      "title_ru": {
+        "type": "string",
+        "analyzer": "russian"
+      },
+      "summary_ru": {
+        "type": "string",
+        "analyzer": "russian"
+      },
+      "title_en": {
+        "type": "string",
+        "analyzer": "english"
+      },
+      "summary_en": {
+        "type": "string",
+        "analyzer": "english"
+      },
+      "title_bg": {
+        "type": "string",
+        "analyzer": "bulgarian"
+      },
+      "summary_bg": {
+        "type": "string",
+        "analyzer": "bulgarian"
+      },
+      "title_hu": {
+        "type": "string",
+        "analyzer": "hungarian"
+      },
+      "summary_hu": {
+        "type": "string",
+        "analyzer": "hungarian"
+      },
+      "title_cs": {
+        "type": "string",
+        "analyzer": "czech"
+      },
+      "summary_cs": {
+        "type": "string",
+        "analyzer": "czech"
+      },
+      "title_it": {
+        "type": "string",
+        "analyzer": "italian"
+      },
+      "summary_it": {
+        "type": "string",
+        "analyzer": "italian"
+      },
+      "title_tr": {
+        "type": "string",
+        "analyzer": "turkish"
+      },
+      "summary_tr": {
+        "type": "string",
+        "analyzer": "turkish"
+      }
+    },
+    "_ttl": {
+      "enabled": true,
+      "default": "24h"
+    }
+  }
+}
