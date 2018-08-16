@@ -5,6 +5,7 @@ import {
 import { Topic } from '@ournet/news-domain';
 import { DynamoEventHelper } from './dynamo-event';
 import { TOPIC_NEWS_EVENT_EXPIRE_DAYS } from '../config';
+import { Locale } from '../common';
 
 export type TopicEventKey = {
     topicId: string
@@ -19,16 +20,16 @@ export interface TopicEvent {
     locale: string
 }
 
-export class TopicNewsHelper {
-    static create(eventId: string, createdAt: string, topics: Topic[]): TopicEvent[] {
-        const expiresAt = TopicNewsHelper.expiresAt(new Date(createdAt));
+export class TopicEventHelper {
+    static create(locale: Locale, eventId: string, createdAt: string, topics: Topic[]): TopicEvent[] {
+        const expiresAt = TopicEventHelper.expiresAt(new Date(createdAt));
         return topics.map(topic => {
             const item: TopicEvent = {
                 eventId,
                 createdAt,
                 expiresAt,
                 topicId: topic.id,
-                locale: DynamoEventHelper.createLocaleFromId(eventId),
+                locale: DynamoEventHelper.createLocaleKey(locale),
             };
 
             return item;
@@ -47,7 +48,7 @@ export class TopicEventModel extends DynamoModel<TopicEventKey, TopicEvent> {
     localeLastTopicsIndexName() {
         return 'locale-last-topics-index';
     }
-    topicLastNewsIndexName() {
+    topicLastEventsIndexName() {
         return 'topic-last-events-index';
     }
 

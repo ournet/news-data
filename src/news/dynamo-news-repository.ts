@@ -29,7 +29,7 @@ import {
 import { DynamoNewsItemHelper, NewsItemModel } from './dynamo-news';
 import { TopicNewsModel, TopicNewsHelper } from './topic-news';
 import { NewsSearcher } from './news-searcher';
-import { sortEntitiesByIds } from '../helpers';
+import { sortEntitiesByIds, buildDateRangeKey } from '../helpers';
 import { Locale } from '../common';
 
 export class DynamoNewsRepository extends BaseRepository<NewsItem> implements NewsRepository {
@@ -117,12 +117,14 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
 
     async latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<NewsItem>) {
         const localeKey = DynamoNewsItemHelper.createLocaleKey(params);
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.localeIndexName(),
             attributes: options && options.fields as string[] | undefined,
             hashKey: localeKey,
             limit: params.limit,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             order: 'DESC',
         });
 
@@ -136,14 +138,15 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<NewsItem>) {
-        let index = this.topicNewsModel.topicLastNewsIndexName();
-        let hashKey = params.topicId;
+        const index = this.topicNewsModel.topicLastNewsIndexName();
+        const hashKey = params.topicId;
+        const rangeKey = buildDateRangeKey(params);
 
         const result = await this.topicNewsModel.query({
             index,
             hashKey,
             limit: params.limit,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             order: 'DESC',
         });
 
@@ -157,10 +160,12 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<NewsItem>) {
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.eventIndexName(),
             hashKey: params.eventId,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             limit: params.limit,
             attributes: ['id'],
         });
@@ -175,10 +180,12 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async latestBySource(params: LatestNewsBySourceQueryParams, options?: RepositoryAccessOptions<NewsItem>) {
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.sourceIndexName(),
             hashKey: params.sourceId,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             limit: params.limit,
             attributes: ['id'],
         });
@@ -194,46 +201,53 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
 
     async count(params: CountNewsQueryParams) {
         const localeKey = DynamoNewsItemHelper.createLocaleKey(params);
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.localeIndexName(),
             select: 'COUNT',
             hashKey: localeKey,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
         });
 
         return result.count;
     }
 
     async countByTopic(params: CountNewsByTopicQueryParams) {
-        let index = this.topicNewsModel.topicLastNewsIndexName();
-        let hashKey = params.topicId;
+        const index = this.topicNewsModel.topicLastNewsIndexName();
+        const hashKey = params.topicId;
+        const rangeKey = buildDateRangeKey(params);
 
         const result = await this.topicNewsModel.query({
             index,
             select: 'COUNT',
             hashKey,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
         });
 
         return result.count;
     }
 
     async countBySource(params: CountNewsBySourceQueryParams) {
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.sourceIndexName(),
             select: 'COUNT',
             hashKey: params.sourceId,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
         });
 
         return result.count;
     }
 
     async countByEvent(params: CountNewsByEventQueryParams) {
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.eventIndexName(),
             hashKey: params.eventId,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             select: 'COUNT',
         });
 
@@ -241,11 +255,13 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async topSourceTopics(params: LatestNewsBySourceQueryParams): Promise<TopItem[]> {
+        const rangeKey = buildDateRangeKey(params);
+
         const result = await this.model.query({
             index: this.model.sourceIndexName(),
             hashKey: params.sourceId,
             limit: 100,
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             order: 'DESC',
             attributes: ['id'],
         });
@@ -287,10 +303,12 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async topSources(params: LatestNewsQueryParams): Promise<TopItem[]> {
+        const rangeKey = buildDateRangeKey(params);
+
         const resultIds = await this.model.query({
             index: this.model.localeIndexName(),
             hashKey: DynamoNewsItemHelper.createLocaleKey(params),
-            rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
+            rangeKey,
             limit: 100,
             attributes: ['id']
         });

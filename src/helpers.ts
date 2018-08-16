@@ -1,4 +1,5 @@
 import { BaseEntity, BaseEntityId } from "@ournet/domain";
+import { DynamoQueryRangeKey } from "dynamo-model";
 
 export function sortEntitiesByIds<T extends BaseEntity>(ids: BaseEntityId[], entities: T[]) {
     const list: T[] = [];
@@ -10,4 +11,26 @@ export function sortEntitiesByIds<T extends BaseEntity>(ids: BaseEntityId[], ent
     }
 
     return list;
+}
+
+export function buildDateRangeKey(params: { minDate?: string, maxDate?: string }) {
+    let rangeKey: DynamoQueryRangeKey | undefined;
+    if (params.maxDate && params.minDate) {
+        rangeKey = {
+            operation: 'BETWEEN',
+            value: [params.minDate, params.maxDate]
+        };
+    } else if (params.maxDate) {
+        rangeKey = {
+            operation: '<',
+            value: params.maxDate
+        };
+    } else if (params.minDate) {
+        rangeKey = {
+            operation: '>',
+            value: params.minDate
+        };
+    }
+
+    return rangeKey;
 }
