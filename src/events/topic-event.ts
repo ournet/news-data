@@ -4,7 +4,7 @@ import {
 } from 'dynamo-model';
 import { Topic } from '@ournet/news-domain';
 import { DynamoEventHelper } from './dynamo-event';
-import { TOPIC_NEWS_EVENT_EXPIRE_DAYS } from './config';
+import { TOPIC_NEWS_EVENT_EXPIRE_DAYS } from '../config';
 
 export type TopicEventKey = {
     topicId: string

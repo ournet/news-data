@@ -1,5 +1,5 @@
 
-const debug = require('debug')('ournet:quotes-data');
+const debug = require('debug')('ournet:news-data');
 
 import DynamoDB = require('aws-sdk/clients/dynamodb');
 import {
@@ -30,7 +30,7 @@ import { NewsItemModel } from './news-model';
 import { DynamoNewsItemHelper } from './dynamo-news';
 import { TopicNewsModel, TopicNewsHelper } from './topic-news';
 import { NewsSearcher } from './news-searcher';
-import { sortEntitiesByIds } from './helpers';
+import { sortEntitiesByIds } from '../helpers';
 
 export class DynamoNewsRepository extends BaseRepository<NewsItem> implements NewsRepository {
     protected model: NewsItemModel

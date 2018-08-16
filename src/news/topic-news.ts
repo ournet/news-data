@@ -4,7 +4,7 @@ import {
 } from 'dynamo-model';
 import { Topic } from '@ournet/news-domain';
 import { DynamoNewsItemHelper } from './dynamo-news';
-import { TOPIC_NEWS_ITEM_EXPIRE_DAYS } from './config';
+import { TOPIC_NEWS_ITEM_EXPIRE_DAYS } from '../config';
 
 export type TopicNewsKey = {
     topicId: string

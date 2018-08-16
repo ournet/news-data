@@ -1,6 +1,6 @@
 import DynamoDB = require('aws-sdk/clients/dynamodb');
 import { NewsRepository } from '@ournet/news-domain';
-import { DynamoNewsRepository } from './dynamo-news-repository';
+import { DynamoNewsRepository } from './news/dynamo-news-repository';
 
 
 export class RepositoryBuilder {
