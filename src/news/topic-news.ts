@@ -5,6 +5,7 @@ import {
 import { Topic } from '@ournet/news-domain';
 import { DynamoNewsItemHelper } from './dynamo-news';
 import { TOPIC_NEWS_ITEM_EXPIRE_DAYS } from '../config';
+import { Locale } from '../common';
 
 export type TopicNewsKey = {
     topicId: string
@@ -20,7 +21,7 @@ export interface TopicNews {
 }
 
 export class TopicNewsHelper {
-    static create(country: string, lang: string, newsId: string, publishedAt: string, topics: Topic[]): TopicNews[] {
+    static create(locale: Locale, newsId: string, publishedAt: string, topics: Topic[]): TopicNews[] {
         const expiresAt = TopicNewsHelper.expiresAt(new Date(publishedAt));
         return topics.map(topic => {
             const item: TopicNews = {
@@ -28,7 +29,7 @@ export class TopicNewsHelper {
                 publishedAt,
                 expiresAt,
                 topicId: topic.id,
-                locale: DynamoNewsItemHelper.createLocaleKey({ country, lang }),
+                locale: DynamoNewsItemHelper.createLocaleKey(locale),
             };
 
             return item;

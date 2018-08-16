@@ -30,6 +30,7 @@ import { DynamoNewsItemHelper, NewsItemModel } from './dynamo-news';
 import { TopicNewsModel, TopicNewsHelper } from './topic-news';
 import { NewsSearcher } from './news-searcher';
 import { sortEntitiesByIds } from '../helpers';
+import { Locale } from '../common';
 
 export class DynamoNewsRepository extends BaseRepository<NewsItem> implements NewsRepository {
     protected model: NewsItemModel
@@ -49,7 +50,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         const item = DynamoNewsItemHelper.mapToNews(createdItem);
 
         if (item.topics) {
-            await this.putTopicNews(item.country, item.lang, item.id, item.publishedAt, item.topics);
+            await this.putTopicNews(item, item.id, item.publishedAt, item.topics);
         }
 
         await this.searcher.index(item);
@@ -67,7 +68,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         const item = DynamoNewsItemHelper.mapToNews(updatedItem);
 
         if (item.topics && item.topics.length && data.set && data.set.publishedAt) {
-            await this.putTopicNews(item.country, item.lang, item.id, item.publishedAt, item.topics);
+            await this.putTopicNews(item, item.id, item.publishedAt, item.topics);
         }
 
         return item;
@@ -325,8 +326,8 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         return topList;
     }
 
-    protected async putTopicNews(country: string, lang: string, newsId: string, lastFoundAt: string, topics: Topic[]) {
-        const items = TopicNewsHelper.create(country, lang, newsId, lastFoundAt, topics);
+    protected async putTopicNews(locale: Locale, newsId: string, lastFoundAt: string, topics: Topic[]) {
+        const items = TopicNewsHelper.create(locale, newsId, lastFoundAt, topics);
 
         for (const item of items) {
             await this.topicNewsModel.put(item);
