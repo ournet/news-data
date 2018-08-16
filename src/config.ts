@@ -1,3 +1,4 @@
 
+export const LATEST_EVENT_EXPIRE_DAYS = 31;
 export const TOPIC_NEWS_EVENT_EXPIRE_DAYS = 31;
 export const TOPIC_NEWS_ITEM_EXPIRE_DAYS = 14;

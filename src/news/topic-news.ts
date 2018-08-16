@@ -28,7 +28,7 @@ export class TopicNewsHelper {
                 publishedAt,
                 expiresAt,
                 topicId: topic.id,
-                locale: DynamoNewsItemHelper.createLocaleKey(country, lang),
+                locale: DynamoNewsItemHelper.createLocaleKey({ country, lang }),
             };
 
             return item;

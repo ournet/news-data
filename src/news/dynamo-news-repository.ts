@@ -26,8 +26,7 @@ import {
     CountNewsByEventQueryParams,
 } from '@ournet/news-domain';
 
-import { NewsItemModel } from './news-model';
-import { DynamoNewsItemHelper } from './dynamo-news';
+import { DynamoNewsItemHelper, NewsItemModel } from './dynamo-news';
 import { TopicNewsModel, TopicNewsHelper } from './topic-news';
 import { NewsSearcher } from './news-searcher';
 import { sortEntitiesByIds } from '../helpers';
@@ -116,7 +115,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<NewsItem>) {
-        const localeKey = DynamoNewsItemHelper.createLocaleKey(params.country, params.lang);
+        const localeKey = DynamoNewsItemHelper.createLocaleKey(params);
         const result = await this.model.query({
             index: this.model.localeIndexName(),
             attributes: options && options.fields as string[] | undefined,
@@ -193,7 +192,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     }
 
     async count(params: CountNewsQueryParams) {
-        const localeKey = DynamoNewsItemHelper.createLocaleKey(params.country, params.lang);
+        const localeKey = DynamoNewsItemHelper.createLocaleKey(params);
         const result = await this.model.query({
             index: this.model.localeIndexName(),
             select: 'COUNT',
@@ -289,7 +288,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
     async topSources(params: LatestNewsQueryParams): Promise<TopItem[]> {
         const resultIds = await this.model.query({
             index: this.model.localeIndexName(),
-            hashKey: DynamoNewsItemHelper.createLocaleKey(params.country, params.lang),
+            hashKey: DynamoNewsItemHelper.createLocaleKey(params),
             rangeKey: params.publishedAt && { operation: '>', value: params.publishedAt } || undefined,
             limit: 100,
             attributes: ['id']

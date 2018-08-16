@@ -3,7 +3,7 @@ import { Client, SearchResponse } from 'elasticsearch';
 import { NewsSearchParams, NewsItem } from '@ournet/news-domain';
 import { atonic, Dictionary } from '@ournet/domain';
 
-const mappings = require('../elasticsearch_mappings.json');
+const mappings = require('../../elasticsearch_mappings.json');
 
 const ES_NEWS_INDEX = 'news';
 const ES_NEWS_TYPE = 'news_item';
