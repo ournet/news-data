@@ -1,4 +1,6 @@
 
 export {
-    RepositoryBuilder,
+    NewsRepositoryBuilder,
+    ArticleContentRepositoryBuilder,
+    EventRepositoryBuilder,
 } from './repository-builder';

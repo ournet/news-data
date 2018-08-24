@@ -6,16 +6,20 @@ import { DynamoArticleContentRepository } from './article-content/dynamo-article
 
 const VERSION_SUFFIX = 'v0';
 
-export class RepositoryBuilder {
-    static buildNewsRepository(client: DynamoDB.DocumentClient, esHost: string, tableSuffix?: string): NewsRepository {
+export class NewsRepositoryBuilder {
+    static build(client: DynamoDB.DocumentClient, esHost: string, tableSuffix?: string): NewsRepository {
         return new DynamoNewsRepository(client, esHost, tableSuffix || VERSION_SUFFIX);
     }
+}
 
-    static buildEventRepository(client: DynamoDB.DocumentClient, tableSuffix?: string): EventRepository {
+export class EventRepositoryBuilder {
+    static build(client: DynamoDB.DocumentClient, tableSuffix?: string): EventRepository {
         return new DynamoEventRepository(client, tableSuffix || VERSION_SUFFIX);
     }
+}
 
-    static buildArticleContentRepository(client: DynamoDB.DocumentClient, tableSuffix?: string): ArticleContentRepository {
+export class ArticleContentRepositoryBuilder {
+    static build(client: DynamoDB.DocumentClient, tableSuffix?: string): ArticleContentRepository {
         return new DynamoArticleContentRepository(client, tableSuffix || VERSION_SUFFIX);
     }
 }
