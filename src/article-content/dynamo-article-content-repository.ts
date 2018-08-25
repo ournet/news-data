@@ -17,11 +17,17 @@ import {
 import { ArticleContentModel } from './dynamo-article-content';
 
 export class DynamoArticleContentRepository extends BaseRepository<ArticleContent> implements ArticleContentRepository {
+
     protected model: ArticleContentModel
 
     constructor(client: DynamoDB.DocumentClient, tableSuffix: string) {
         super(new ArticleContentValidator());
         this.model = new ArticleContentModel(client, tableSuffix);
+    }
+
+    async put(content: ArticleContent): Promise<ArticleContent> {
+        content = super.beforeCreate(content);
+        return this.model.put(content);
     }
 
     async innerCreate(data: ArticleContent) {
