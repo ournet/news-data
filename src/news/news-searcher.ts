@@ -104,11 +104,21 @@ export class NewsSearcher {
     }
 
     async init() {
-        await this.client.indices.putTemplate({
-            name: ES_NEWS_INDEX,
-            body: {
-                mappings: mappings,
-            }
+        const exists = await this.client.indices.exists({
+            index: ES_NEWS_INDEX,
+        });
+
+        if (exists) {
+            return;
+        }
+        
+        await this.client.indices.create({
+            index: ES_NEWS_INDEX,
+        });
+        await this.client.indices.putMapping({
+            index: ES_NEWS_INDEX,
+            type: ES_NEWS_TYPE,
+            body: mappings,
         });
     }
 }
