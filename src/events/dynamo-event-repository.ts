@@ -261,12 +261,14 @@ export class DynamoEventRepository extends BaseRepository<NewsEvent> implements 
         await Promise.all([
             this.latestModel.deleteTable(),
             this.model.deleteTable(),
+            this.topicModel.deleteTable(),
         ]);
     }
     async createStorage(): Promise<void> {
         await Promise.all([
             this.latestModel.createTable(),
             this.model.createTable(),
+            this.topicModel.createTable(),
         ]);
     }
 }
