@@ -63,7 +63,7 @@ export class TopicNewsModel extends DynamoModel<TopicNewsKey, TopicNews> {
                 type: 'S'
             },
             name: 'topic_news',
-            tableName: `ournet_topic_news_${tableSuffix}`,
+            tableName: `ournet_news__topic_${tableSuffix}`,
             indexes: [
                 {
                     name: 'topic-last-news-index',

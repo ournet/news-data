@@ -63,7 +63,7 @@ export class TopicEventModel extends DynamoModel<TopicEventKey, TopicEvent> {
                 type: 'S'
             },
             name: 'topic_events',
-            tableName: `ournet_topic_events_${tableSuffix}`,
+            tableName: `ournet_events__topic_${tableSuffix}`,
             indexes: [
                 {
                     name: 'topic-last-events-index',
