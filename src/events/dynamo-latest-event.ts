@@ -25,7 +25,7 @@ export class DynamoLatestEventHelper {
         return item;
     }
 
-    static createLocaleKey(locale: Locale){
+    static createLocaleKey(locale: Locale) {
         return DynamoEventHelper.createLocaleKey(locale);
     }
 

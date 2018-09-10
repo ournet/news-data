@@ -2,9 +2,8 @@ import DynamoDB = require('aws-sdk/clients/dynamodb');
 import {
     DynamoModel,
 } from 'dynamo-model';
-import { Topic } from '@ournet/news-domain';
+import { Topic, EventHelper } from '@ournet/news-domain';
 import { DynamoEventHelper } from './dynamo-event';
-import { TOPIC_NEWS_EVENT_EXPIRE_DAYS } from '../config';
 import { Locale } from '../common';
 
 export type TopicEventKey = {
@@ -22,7 +21,7 @@ export interface TopicEvent {
 
 export class TopicEventHelper {
     static create(locale: Locale, eventId: string, createdAt: string, topics: Topic[]): TopicEvent[] {
-        const expiresAt = TopicEventHelper.expiresAt(new Date(createdAt));
+        const expiresAt = EventHelper.topicExpiresAt(new Date(createdAt));
         return topics.map(topic => {
             const item: TopicEvent = {
                 eventId,
@@ -34,13 +33,6 @@ export class TopicEventHelper {
 
             return item;
         });
-    }
-
-    static expiresAt(date: Date) {
-        date = new Date(date);
-        date.setDate(date.getDate() + TOPIC_NEWS_EVENT_EXPIRE_DAYS);
-
-        return Math.floor(date.getTime() / 1000);
     }
 }
 

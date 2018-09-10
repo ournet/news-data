@@ -50,7 +50,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         const item = DynamoNewsItemHelper.mapToNews(createdItem);
 
         if (item.topics) {
-            await this.putTopicNews(item, item.id, item.publishedAt, item.topics);
+            await this.putTopicNews(item, item.id, item.publishedAt, item.topics, data.expiresAt);
         }
 
         await this.searcher.index(item);
@@ -66,10 +66,6 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         });
 
         const item = DynamoNewsItemHelper.mapToNews(updatedItem);
-
-        if (item.topics && item.topics.length && data.set && data.set.publishedAt) {
-            await this.putTopicNews(item, item.id, item.publishedAt, item.topics);
-        }
 
         return item;
     }
@@ -344,8 +340,8 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         return topList;
     }
 
-    protected async putTopicNews(locale: Locale, newsId: string, lastFoundAt: string, topics: Topic[]) {
-        const items = TopicNewsHelper.create(locale, newsId, lastFoundAt, topics);
+    protected async putTopicNews(locale: Locale, newsId: string, lastFoundAt: string, topics: Topic[], expiresAt: number) {
+        const items = TopicNewsHelper.create(locale, newsId, lastFoundAt, topics, expiresAt);
 
         for (const item of items) {
             await this.topicNewsModel.put(item);
