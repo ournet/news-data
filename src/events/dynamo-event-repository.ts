@@ -173,7 +173,7 @@ export class DynamoEventRepository extends BaseRepository<NewsEvent> implements 
     }
 
     async topTopics(params: LatestEventsQueryParams): Promise<TopItem[]> {
-        const latestEvents = await this.latest({ ...params, limit: 50 }, { fields: ['topics'] });
+        const latestEvents = await this.latest({ ...params, limit: 50 }, { fields: ['id', 'topics'] });
 
         if (!latestEvents.length) {
             return [];
