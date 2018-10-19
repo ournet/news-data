@@ -1,5 +1,5 @@
 
-// const debug = require('debug')('ournet:news-data');
+const debug = require('debug')('ournet:news-data');
 
 import DynamoDB = require('aws-sdk/clients/dynamodb');
 import {
@@ -7,6 +7,8 @@ import {
     RepositoryUpdateData,
     RepositoryAccessOptions,
     Dictionary,
+    mapPromise,
+    uniq,
 } from '@ournet/domain';
 
 import {
@@ -20,6 +22,7 @@ import {
     CountEventsByTopicQueryParams,
     TopItem,
     TrendingTopicsQueryParams,
+    SimilarEventsByTopicsQueryParams,
 } from '@ournet/news-domain';
 
 import { DynamoEventHelper, EventModel } from './dynamo-event';
@@ -39,6 +42,59 @@ export class DynamoEventRepository extends BaseRepository<NewsEvent> implements 
         this.model = new EventModel(client, tableSuffix);
         this.latestModel = new LatestEventModel(client, tableSuffix);
         this.topicModel = new TopicEventModel(client, tableSuffix);
+    }
+
+    async similarByTopics(params: SimilarEventsByTopicsQueryParams, options?: RepositoryAccessOptions<NewsEvent>) {
+        const index = this.topicModel.topicLastEventsIndexName();
+        const rangeKey = buildDateRangeKey(params);
+
+        const latestResults = await mapPromise(params.topicIds, topicId => this.topicModel.query({
+            index,
+            attributes: ['eventId'],
+            hashKey: topicId,
+            limit: params.limit,
+            rangeKey,
+            order: 'DESC',
+        }));
+
+        let allEventIds: string[] = [];
+
+        for (const eventIds of latestResults.values()) {
+            allEventIds = allEventIds.concat((eventIds.items || []).map(item => item.eventId));
+        }
+
+        if (allEventIds.length === 0) {
+            return [];
+        }
+
+        const idsMap = allEventIds.reduce<Dictionary<number>>((dic, id) => {
+            if (!dic[id]) {
+                dic[id] = 0;
+            }
+            dic[id]++;
+            return dic;
+        }, {});
+
+        if (params.exceptId) {
+            delete idsMap[params.exceptId];
+        }
+
+        debug(`Similar events ids map: ${idsMap}`);
+
+        const ids = uniq(
+            Object.keys(idsMap)
+                .map(id => ({ id, count: idsMap[id] }))
+                .sort((a, b) => b.count - a.count)
+                .map(item => item.id)
+        ).slice(0, params.limit);
+
+        if (ids.length === 0) {
+            return [];
+        }
+
+        debug(`Similar events ids: ${ids}`);
+
+        return this.getByIds(ids, options);
     }
 
     async viewNewsEvent(id: string) {
