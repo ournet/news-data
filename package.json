@@ -46,10 +46,7 @@
     "typescript": "latest"
   },
   "dependencies": {
-    "@ournet/domain": "^0.3.1",
-    "@ournet/news-domain": "^0.1.0",
     "aws-sdk": "^2.291.0",
-    "dynamo-model": "^0.1.0",
     "elasticsearch": "^15.1.1",
     "ms": "^2.1.1"
   }

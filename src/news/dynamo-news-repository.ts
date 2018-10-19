@@ -44,6 +44,20 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
         this.searcher = new NewsSearcher(esHost);
     }
 
+    async viewNewsItem(id: string) {
+        const item = await this.model.get({ id }, { attributes: ['id', 'countViews'] });
+
+        if (!item) {
+            throw new Error(`Not found news item id=${id}`);
+        }
+
+        const countViews = item.countViews + 1;
+
+        await this.update({ id, set: { countViews } });
+
+        return countViews;
+    }
+
     async innerCreate(data: NewsItem) {
         const createdItem = await this.model.create(DynamoNewsItemHelper.mapFromNews(data));
 
