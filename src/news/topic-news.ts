@@ -1,7 +1,7 @@
 import DynamoDB = require('aws-sdk/clients/dynamodb');
 import {
-    DynamoModel,
-} from 'dynamo-model';
+    DynamoItem,
+} from 'dynamo-item';
 import { Topic } from '@ournet/news-domain';
 import { DynamoNewsItemHelper } from './dynamo-news';
 import { Locale } from '../common';
@@ -35,7 +35,7 @@ export class TopicNewsHelper {
     }
 }
 
-export class TopicNewsModel extends DynamoModel<TopicNewsKey, TopicNews> {
+export class TopicNewsModel extends DynamoItem<TopicNewsKey, TopicNews> {
     localeLastTopicsIndexName() {
         return 'locale-last-topics-index';
     }
@@ -87,6 +87,6 @@ export class TopicNewsModel extends DynamoModel<TopicNewsKey, TopicNews> {
                     }
                 }
             ]
-        }, client);
+        }, client as any);
     }
 }

@@ -1,12 +1,12 @@
 import DynamoDB = require('aws-sdk/clients/dynamodb');
-import { DynamoModel } from "dynamo-model";
+import { DynamoItem } from "dynamo-item";
 import { ArticleContent } from "@ournet/news-domain";
 
 export type ArticleContentKey = {
     id: string
 }
 
-export class ArticleContentModel extends DynamoModel<ArticleContentKey, ArticleContent> {
+export class ArticleContentModel extends DynamoItem<ArticleContentKey, ArticleContent> {
     constructor(client: DynamoDB.DocumentClient, tableSuffix: string) {
         super({
             hashKey: {
@@ -15,6 +15,6 @@ export class ArticleContentModel extends DynamoModel<ArticleContentKey, ArticleC
             },
             name: 'articles_content',
             tableName: `ournet_articles_content_${tableSuffix}`,
-        }, client);
+        }, client as any);
     }
 }

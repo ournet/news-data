@@ -1,5 +1,5 @@
 import { BaseEntity, BaseEntityId } from "@ournet/domain";
-import { DynamoQueryRangeKey } from "dynamo-model";
+import { DynamoQueryRangeKey } from "dynamo-item";
 
 export function sortEntitiesByIds<T extends BaseEntity>(ids: BaseEntityId[], entities: T[]) {
     const list: T[] = [];

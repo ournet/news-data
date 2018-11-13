@@ -1,5 +1,5 @@
 import DynamoDB = require('aws-sdk/clients/dynamodb');
-import { DynamoModel } from "dynamo-model";
+import { DynamoItem } from "dynamo-item";
 import { NewsEvent } from "@ournet/news-domain";
 import { DynamoEventHelper } from "./dynamo-event";
 import { LATEST_EVENT_EXPIRE_DAYS } from "../config";
@@ -41,7 +41,7 @@ export type LatestEventKey = {
     eventId: string
 }
 
-export class LatestEventModel extends DynamoModel<LatestEventKey, DynamoLatestEvent> {
+export class LatestEventModel extends DynamoItem<LatestEventKey, DynamoLatestEvent> {
     constructor(client: DynamoDB.DocumentClient, tableSuffix: string) {
         super({
             hashKey: {
@@ -54,6 +54,6 @@ export class LatestEventModel extends DynamoModel<LatestEventKey, DynamoLatestEv
             },
             name: 'latest_events',
             tableName: `ournet_latest_events_${tableSuffix}`,
-        }, client);
+        }, client as any);
     }
 }

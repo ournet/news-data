@@ -36,18 +36,21 @@
   },
   "homepage": "https://github.com/ournet/news-data#readme",
   "devDependencies": {
-    "@types/elasticsearch": "^5.0.25",
+    "@types/elasticsearch": "^5.0.28",
     "@types/ms": "^0.7.30",
-    "@types/node": "latest",
+    "@types/node": "10.12.7",
     "ava": "^0.25.0",
-    "debug": "^3.1.0",
+    "debug": "^4.1.0",
     "dynamodb-local": "^0.0.22",
     "rimraf": "^2.6.2",
-    "typescript": "latest"
+    "typescript": "3.1.6"
   },
   "dependencies": {
-    "aws-sdk": "^2.291.0",
-    "elasticsearch": "^15.1.1",
+    "@ournet/domain": "^0.3.3",
+    "@ournet/news-domain": "^0.1.1",
+    "aws-sdk": "^2.354.0",
+    "dynamo-item": "^0.1.1",
+    "elasticsearch": "^15.2.0",
     "ms": "^2.1.1"
   }
 }

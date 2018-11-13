@@ -1,5 +1,5 @@
 import DynamoDB = require('aws-sdk/clients/dynamodb');
-import { DynamoModel } from "dynamo-model";
+import { DynamoItem } from "dynamo-item";
 import { NewsEvent, EventHelper } from "@ournet/news-domain";
 import { Locale } from "../common";
 
@@ -46,7 +46,7 @@ export type EventKey = {
     id: string
 }
 
-export class EventModel extends DynamoModel<EventKey, DynamoEvent> {
+export class EventModel extends DynamoItem<EventKey, DynamoEvent> {
     constructor(client: DynamoDB.DocumentClient, tableSuffix: string) {
         super({
             hashKey: {
@@ -55,6 +55,6 @@ export class EventModel extends DynamoModel<EventKey, DynamoEvent> {
             },
             name: 'events',
             tableName: `ournet_events_${tableSuffix}`,
-        }, client);
+        }, client as any);
     }
 }

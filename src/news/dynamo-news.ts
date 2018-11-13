@@ -1,5 +1,5 @@
 import DynamoDB = require('aws-sdk/clients/dynamodb');
-import { DynamoModel } from "dynamo-model";
+import { DynamoItem } from "dynamo-item";
 import { NewsItem } from "@ournet/news-domain";
 import { Locale } from "../common";
 
@@ -40,7 +40,7 @@ export type NewsItemKey = {
     id: string
 }
 
-export class NewsItemModel extends DynamoModel<NewsItemKey, DynamoNewsItem> {
+export class NewsItemModel extends DynamoItem<NewsItemKey, DynamoNewsItem> {
     localeIndexName() {
         return 'locale-index';
     }
@@ -105,6 +105,6 @@ export class NewsItemModel extends DynamoModel<NewsItemKey, DynamoNewsItem> {
                     }
                 }
             ]
-        }, client);
+        }, client as any);
     }
 }
