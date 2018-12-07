@@ -7,6 +7,7 @@ import {
     RepositoryUpdateData,
     RepositoryAccessOptions,
     Dictionary,
+    uniq,
 } from '@ournet/domain';
 
 import {
@@ -120,7 +121,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
             return [];
         }
 
-        const ids = searchResults.map(item => item.id);
+        const ids = uniq(searchResults.map(item => item.id)).slice(0, params.limit);
 
         return this.getByIds(ids, options);
     }
@@ -142,7 +143,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
             return [];
         }
 
-        const ids = result.items.map(item => item.id);
+        const ids = uniq(result.items.map(item => item.id)).slice(0, params.limit);
 
         return this.getByIds(ids, options);
     }
@@ -164,7 +165,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
             return [];
         }
 
-        const ids = result.items.map(item => item.newsId);
+        const ids = uniq(result.items.map(item => item.newsId)).slice(0, params.limit);
 
         return this.getByIds(ids, options);
     }
@@ -184,7 +185,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
             return [];
         }
 
-        const ids = result.items.map(item => item.id);
+        const ids = uniq(result.items.map(item => item.id)).slice(0, params.limit);
 
         return this.getByIds(ids, options);
     }
@@ -204,7 +205,7 @@ export class DynamoNewsRepository extends BaseRepository<NewsItem> implements Ne
             return [];
         }
 
-        const ids = result.items.map(item => item.id);
+        const ids = uniq(result.items.map(item => item.id)).slice(0, params.limit);
 
         return this.getByIds(ids, options);
     }

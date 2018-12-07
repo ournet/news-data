@@ -186,7 +186,7 @@ export class DynamoEventRepository extends BaseRepository<NewsEvent> implements 
             return [];
         }
 
-        const ids = latestResults.items.map(item => item.eventId);
+        const ids = uniq(latestResults.items.map(item => item.eventId)).slice(0, 100);
 
         return this.getByIds(ids, options);
     }
@@ -209,7 +209,7 @@ export class DynamoEventRepository extends BaseRepository<NewsEvent> implements 
             return [];
         }
 
-        const ids = result.items.map(item => item.eventId);
+        const ids = uniq(result.items.map(item => item.eventId)).slice(0, 100);
 
         return this.getByIds(ids, options);
     }
