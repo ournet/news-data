@@ -1,6 +1,6 @@
 {
   "name": "@ournet/news-data",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Ournet news data module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -36,21 +36,21 @@
   },
   "homepage": "https://github.com/ournet/news-data#readme",
   "devDependencies": {
-    "@types/elasticsearch": "^5.0.28",
+    "@types/elasticsearch": "^5.0.30",
     "@types/ms": "^0.7.30",
-    "@types/node": "10.12.7",
+    "@types/node": "10.12.19",
     "ava": "^0.25.0",
-    "debug": "^4.1.0",
-    "dynamodb-local": "^0.0.22",
-    "rimraf": "^2.6.2",
-    "typescript": "3.1.6"
+    "debug": "^4.1.1",
+    "dynamodb-local": "^0.0.24",
+    "rimraf": "^2.6.3",
+    "typescript": "3.2.4"
   },
   "dependencies": {
-    "@ournet/domain": "^0.3.3",
-    "@ournet/news-domain": "^0.1.1",
-    "aws-sdk": "^2.354.0",
-    "dynamo-item": "^0.1.1",
-    "elasticsearch": "^15.2.0",
+    "@ournet/domain": "~0.3.4",
+    "@ournet/news-domain": "~0.1.2",
+    "aws-sdk": "^2.395.0",
+    "dynamo-item": "~0.1.1",
+    "elasticsearch": "^15.3.1",
     "ms": "^2.1.1"
   }
 }
