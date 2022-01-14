@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@ournet/domain": "~0.3.4",
-    "@ournet/news-domain": "~0.1.2",
+    "@ournet/news-domain": "~0.1.x",
     "aws-sdk": "^2.1058.0",
     "dynamo-item": "~0.1.1",
     "elasticsearch": "^16.7.2",
