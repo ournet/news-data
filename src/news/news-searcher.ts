@@ -25,7 +25,7 @@ export class NewsSearcher {
   constructor(host: string) {
     this.client = new Client({
       host,
-      ssl: { rejectUnauthorized: false }
+      ssl: { rejectUnauthorized: false, pfx: [] }
     });
   }
 
