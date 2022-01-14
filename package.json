@@ -6,7 +6,6 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "pretest": "npm run clean && npm run tsc",
-    "test": "ava --verbose lib/**/*.test.js",
     "posttest": "npm run clean-test-code",
     "tsc": "tsc",
     "tscw": "tsc -w",
@@ -39,7 +38,6 @@
     "@types/elasticsearch": "^5.0.30",
     "@types/ms": "^0.7.30",
     "@types/node": "10.12.19",
-    "ava": "^0.25.0",
     "debug": "^4.1.1",
     "dynamodb-local": "^0.0.24",
     "rimraf": "^2.6.3",
