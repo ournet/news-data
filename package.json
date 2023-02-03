@@ -1,6 +1,6 @@
 {
   "name": "@ournet/news-data",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Ournet news data module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
