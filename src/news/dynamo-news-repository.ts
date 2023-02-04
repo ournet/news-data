@@ -31,6 +31,7 @@ import { TopicNewsModel, TopicNewsHelper } from "./topic-news";
 import { NewsSearcher } from "./news-searcher";
 import { sortEntitiesByIds, buildDateRangeKey } from "../helpers";
 import { Locale } from "../common";
+import { DynamoQueryParams } from "dynamo-item";
 
 export class DynamoNewsRepository
   extends BaseRepository<NewsItem>
@@ -375,15 +376,15 @@ export class DynamoNewsRepository
 
   async topSources(params: LatestNewsQueryParams): Promise<TopItem[]> {
     const rangeKey = buildDateRangeKey(params);
-
-    const resultIds = await this.model.query({
+    const dParams: DynamoQueryParams = {
       index: this.model.localeIndexName(),
       hashKey: DynamoNewsItemHelper.createLocaleKey(params),
       rangeKey,
-      limit: 200,
+      limit: 100,
       attributes: ["id"],
       order: "DESC"
-    });
+    };
+    const resultIds = await this.model.query(dParams);
 
     if (!resultIds.items || !resultIds.items.length) {
       debug(`Top sources result ids is empty`, params);
