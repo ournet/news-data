@@ -380,7 +380,7 @@ export class DynamoNewsRepository
       index: this.model.localeIndexName(),
       hashKey: DynamoNewsItemHelper.createLocaleKey(params),
       rangeKey,
-      limit: 100,
+      limit: 200,
       attributes: ["id"],
       order: "DESC"
     });
