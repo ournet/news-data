@@ -2,21 +2,21 @@
 # yarn lockfile v1
 
 
-"@ournet/domain@^0.3.6", "@ournet/domain@~0.3.6":
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/@ournet/domain/-/domain-0.3.6.tgz#d4b217fd5829410da595155454ef19a287a4a30a"
-  integrity sha512-hvlIlD2tvCeMFXfiIptlKmFc8pc+hom4+sefxYTAlu3UcmXx7DJ3Z59K14PGXCl/zVN7d78GBF0Gb+mfAa7PHg==
+"@ournet/domain@^0.4.2", "@ournet/domain@~0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@ournet/domain/-/domain-0.4.2.tgz#460c6fee2490c2d7be7bab7d1dd41da113d90259"
+  integrity sha512-SqSVEM3itAHgLP4mqUiLr6qniUy4IGOk4rMGD6bVv5S2JhYD7KnuhWQSdidZNWRS56CIJs+ms3Rlu/QRVh+/Ug==
   dependencies:
     atonic "^1.0.4"
     joi "^14.0.3"
     normalize-url "^4.5.1"
 
-"@ournet/news-domain@~0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@ournet/news-domain/-/news-domain-0.1.4.tgz#c4aaba56ebeb9946a7ba81a0dcbfb0b06d2060a4"
-  integrity sha512-Jiu7aU66GN8GY+k9MrgKyoZ6c/25peh47+u0ed8Vpy0WYtGC08TBXRgtbGpOLu/OlVGEr7zkxsX9ufvJTHKHWA==
+"@ournet/news-domain@~0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@ournet/news-domain/-/news-domain-0.2.0.tgz#7467c8641d4b19ac6af16b8252204c612f275afd"
+  integrity sha512-239nSTWP/DjYZBKPDPmEV/UuMhs0Bk9mlsAagu9dAVPrcVNJzY/bZiId2Ikq4jdRcasUT9GAY+pcXAfBHinKhw==
   dependencies:
-    "@ournet/domain" "^0.3.6"
+    "@ournet/domain" "^0.4.2"
     ellipsize "^0.1.0"
     joi "^13.6.0"
     transliteration "^2.2.0"

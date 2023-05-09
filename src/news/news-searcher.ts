@@ -22,11 +22,12 @@ type SearchItem = {
 
 export class NewsSearcher {
   private client: Client;
-  constructor(host: string) {
-    this.client = new Client({
-      host,
-      ssl: { rejectUnauthorized: false, pfx: [] }
-    });
+  constructor(host: string | Record<string, any>) {
+    const options =
+      typeof host === "string"
+        ? { host, ssl: { rejectUnauthorized: false, pfx: [] } }
+        : host;
+    this.client = new Client(options);
   }
 
   async search(params: NewsSearchParams): Promise<NewsSearchItem[]> {

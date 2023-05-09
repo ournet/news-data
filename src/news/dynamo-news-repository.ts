@@ -43,7 +43,7 @@ export class DynamoNewsRepository
 
   constructor(
     client: DynamoDB.DocumentClient,
-    esHost: string,
+    esHost: string | Record<string, any>,
     tableSuffix: string
   ) {
     super(new NewsItemValidator());
