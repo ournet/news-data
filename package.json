@@ -1,6 +1,6 @@
 {
   "name": "@ournet/news-data",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Ournet news data module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -44,8 +44,8 @@
     "typescript": "3.2.4"
   },
   "dependencies": {
-    "@ournet/domain": "~0.3.4",
-    "@ournet/news-domain": "~0.1.x",
+    "@ournet/domain": "~0.3.6",
+    "@ournet/news-domain": "~0.1.4",
     "aws-sdk": "^2.1058.0",
     "dynamo-item": "~0.1.1",
     "elasticsearch": "^16.7.2",

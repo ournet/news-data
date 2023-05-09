@@ -2,21 +2,21 @@
 # yarn lockfile v1
 
 
-"@ournet/domain@^0.x.x", "@ournet/domain@~0.3.4":
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/@ournet/domain/-/domain-0.3.5.tgz#6536caa23c84bcb383207173285264caa2ee68ee"
-  integrity sha512-/+qWVqYJIzGyt6cmqdQ/iPLF8u/EPTBggmHVdqsjRxobupuwDhahdh12LkicFpGK7Ltzn28Orm3g30hvlVC74Q==
+"@ournet/domain@^0.3.6", "@ournet/domain@~0.3.6":
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/@ournet/domain/-/domain-0.3.6.tgz#d4b217fd5829410da595155454ef19a287a4a30a"
+  integrity sha512-hvlIlD2tvCeMFXfiIptlKmFc8pc+hom4+sefxYTAlu3UcmXx7DJ3Z59K14PGXCl/zVN7d78GBF0Gb+mfAa7PHg==
   dependencies:
     atonic "^1.0.4"
     joi "^14.0.3"
-    normalize-url "^3.2.0"
+    normalize-url "^4.5.1"
 
-"@ournet/news-domain@~0.1.x":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@ournet/news-domain/-/news-domain-0.1.3.tgz#80521734ab0d1b4ad05ded89403ff67f713ac589"
-  integrity sha512-VuWDMGgORBwHifQRbyQ91aDU3CjI/FDAM9CzJNlLz+CmvdZNzy9e6Tgg25KF7CYmndAX51Fwkdms6qN56mZOLA==
+"@ournet/news-domain@~0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@ournet/news-domain/-/news-domain-0.1.4.tgz#c4aaba56ebeb9946a7ba81a0dcbfb0b06d2060a4"
+  integrity sha512-Jiu7aU66GN8GY+k9MrgKyoZ6c/25peh47+u0ed8Vpy0WYtGC08TBXRgtbGpOLu/OlVGEr7zkxsX9ufvJTHKHWA==
   dependencies:
-    "@ournet/domain" "^0.x.x"
+    "@ournet/domain" "^0.3.6"
     ellipsize "^0.1.0"
     joi "^13.6.0"
     transliteration "^2.2.0"
@@ -380,10 +380,10 @@ ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-normalize-url@^3.2.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
-  integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
+normalize-url@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
+  integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
 
 once@^1.3.0:
   version "1.4.0"
